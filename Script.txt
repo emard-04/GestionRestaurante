@@ -1,0 +1,164 @@
+-- Script para crear la base de datos y sus tablas
+
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS restaurante_db;
+USE restaurante_db;
+
+-- -----------------------------------------------------
+-- Tabla `Puesto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Puesto (
+  IdPuesto INT NOT NULL AUTO_INCREMENT,
+  Descripcion VARCHAR(100) NULL,
+  PRIMARY KEY (IdPuesto)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Empleados`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Empleados (
+  IdEmpleado INT NOT NULL AUTO_INCREMENT,
+  Nombre VARCHAR(25) NULL,
+  Apellido VARCHAR(25) NULL,
+  IdPuesto INT NULL,
+  telefono VARCHAR(25) NULL,
+  Email VARCHAR(30) NULL,
+  Estado VARCHAR(10) NULL,
+  PRIMARY KEY (IdEmpleado),
+  FOREIGN KEY (IdPuesto) REFERENCES Puesto (IdPuesto)
+);
+
+-- -----------------------------------------------------
+-- Tabla `TurnoEmpleados`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS TurnoEmpleados (
+  IdTurno INT NOT NULL AUTO_INCREMENT,
+  IdEmpleado INT NULL,
+  fecha DATE NULL,
+  hora_inicio VARCHAR(10) NULL,
+  hora_fin VARCHAR(10) NULL,
+  PRIMARY KEY (IdTurno),
+  FOREIGN KEY (IdEmpleado) REFERENCES Empleados (IdEmpleado)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Provincia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Provincia (
+  IdProvincia INT NOT NULL AUTO_INCREMENT,
+  Descripcion VARCHAR(100) NULL,
+  PRIMARY KEY (IdProvincia)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Localidad`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Localidad (
+  IdLocalidad INT NOT NULL AUTO_INCREMENT,
+  IdProvincia INT NULL,
+  Descripcion VARCHAR(100) NULL,
+  PRIMARY KEY (IdLocalidad),
+  FOREIGN KEY (IdProvincia) REFERENCES Provincia (IdProvincia)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Cliente (
+  IdCliente INT NOT NULL AUTO_INCREMENT,
+  Nombre VARCHAR(20) NULL,
+  Apellido VARCHAR(30) NULL,
+  email VARCHAR(50) NULL,
+  telefono VARCHAR(11) NULL,
+  estado VARCHAR(10) NULL,
+  PRIMARY KEY (IdCliente)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Usuario (
+  IdUsuario INT NOT NULL AUTO_INCREMENT,
+  NombreUsuario VARCHAR(30) NULL,
+  Contraseña VARCHAR(30) NULL,
+  Rol BOOLEAN NULL,
+  PRIMARY KEY (IdUsuario)
+);
+
+-- -----------------------------------------------------
+-- Tabla `TipoProducto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS TipoProducto (
+  IdTipoProducto INT NOT NULL AUTO_INCREMENT,
+  Descripcion VARCHAR(20) NULL,
+  PRIMARY KEY (IdTipoProducto)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Producto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Producto (
+  CodProducto VARCHAR(4) NOT NULL,
+  IdTipoProducto INT NULL,
+  Descripcion VARCHAR(50) NULL,
+  precio DECIMAL(10,2) NULL,
+  estado VARCHAR(10) NULL,
+  PRIMARY KEY (CodProducto),
+  FOREIGN KEY (IdTipoProducto) REFERENCES TipoProducto (IdTipoProducto)
+);
+
+-- -----------------------------------------------------
+-- Tabla `mesas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS mesas (
+  idMesa INT NOT NULL AUTO_INCREMENT,
+  capacidad INT NULL,
+  estado VARCHAR(10) NULL,
+  PRIMARY KEY (idMesa)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Reservas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Reservas (
+  IdReserva INT NOT NULL AUTO_INCREMENT,
+  IdCliente INT NULL,
+  IdMesa INT NULL,
+  cant_personas INT NULL,
+  fecha DATE NULL,
+  estado VARCHAR(10) NULL,
+  PRIMARY KEY (IdReserva),
+  FOREIGN KEY (IdCliente) REFERENCES Cliente (IdCliente),
+  FOREIGN KEY (IdMesa) REFERENCES mesas (idMesa)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Pedidos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Pedidos (
+  IdPedido INT NOT NULL AUTO_INCREMENT,
+  Total DECIMAL(10,2) NULL,
+  Fecha_de_entrega DATE NULL,
+  seña DECIMAL(10,2) NULL,
+  IdCliente INT NULL,
+  IdMesa INT NULL,
+  estado VARCHAR(10) NULL,
+  PRIMARY KEY (IdPedido),
+  FOREIGN KEY (IdCliente) REFERENCES Cliente (IdCliente),
+  FOREIGN KEY (IdMesa) REFERENCES mesas (idMesa)
+);
+
+-- -----------------------------------------------------
+-- Tabla `Detalle_pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS Detalle_pedido (
+  IdDetallePedido INT NOT NULL AUTO_INCREMENT,
+  IdPedido INT NULL,
+  IdProducto VARCHAR(4) NULL,
+  Subtotal DECIMAL(10,2) NULL,
+  Cantidad INT NULL,
+  PU DECIMAL(10,2) NULL,
+  PRIMARY KEY (IdDetallePedido),
+  FOREIGN KEY (IdPedido) REFERENCES Pedidos (IdPedido),
+  FOREIGN KEY (IdProducto) REFERENCES Producto (CodProducto)
+);
