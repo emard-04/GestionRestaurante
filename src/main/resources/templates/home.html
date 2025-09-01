@@ -1,10 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Dashboard Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('/images/FotoFondo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #4a4a4a;
+        }
+
+        /* Contenedor principal para el dashboard */
+        .dashboard-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            color: #000000;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Para centrar los elementos verticalmente */
+            align-items: center;
+        }
+
+        /* Estilo para los ítems de la barra lateral */
+        .sidebar-item {
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #4a6480;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar-item:hover {
+            background-color: #4a6480;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-content: flex-start;
+            color: #000000;
+        }
+
+        .module-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            width: 250px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            /* Aquí hacemos las letras negras */
+            color: #000000;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        /* Estilos para el nuevo botón */
+        .logout-button {
+            /* Estilos para el botón */
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 15px 30px;
+            border: none; /* Elimina el borde por defecto de los botones */
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b; /* Un rojo más oscuro al pasar el cursor */
+            transform: translateY(-2px);
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+        }
+    </style>
 </head>
 <body>
+<div class="dashboard-container">
+    <img src="/images/logo.jpg" alt="Logo Restaurante" style="position: fixed; top: 20px; left: 20px; width: 150px; z-index: 10;">
+    <form th:action="@{/logout}" method="post" style="position: fixed; bottom: 20px; left: 20px; z-index: 10;" onsubmit="return confirmLogout()">
+        <button type="submit" class="logout-button">Salir</button>
+    </form>
 
+    <div class="sidebar">
+        <div class="sidebar-item">Bienvenido (nombre usuario)</div>
+        <div class="sidebar-item">Elegir restaurante según localidad y provincia</div>
+    </div>
+
+    <div class="content-area">
+        <div class="module-card">Mesas</div>
+        <div class="module-card">Productos</div>
+        <div class="module-card">Empleados</div>
+        <div class="module-card">Clientes</div>
+        <div class="module-card">Reportes</div>
+    </div>
+</div>
 </body>
+<script>
+    function confirmLogout() {
+        return confirm('¿Estás seguro de que quieres cerrar sesión?');
+    }
+</script>
 </html>

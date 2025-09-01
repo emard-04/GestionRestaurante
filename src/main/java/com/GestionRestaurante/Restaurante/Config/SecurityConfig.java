@@ -29,7 +29,9 @@ public class SecurityConfig {
                         .failureUrl("/login?error") // Redirige a /login?error si falla el login
                 )
                 .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
                         .permitAll()
+
                 );
         return http.build();
     }
@@ -42,7 +44,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.withUsername("admin")
-                .password(passwordEncoder().encode("admin123"))
+                .password(passwordEncoder().encode("ad"))
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user);
