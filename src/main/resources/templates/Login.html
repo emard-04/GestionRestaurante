@@ -6,26 +6,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-    /* Antes: background-image: linear-gradient(rgba(...), rgba(...)), url('/images/fotofondo2.webp'); */
+                    font-family: 'Poppins', sans-serif;
+            /* Antes: background-image: linear-gradient(rgba(...), rgba(...)), url('/images/fotofondo2.webp'); */
 
-    /* Ahora: Solo la imagen */
-    background-image: url('/images/FotoFondo.jpg');
+            /* Ahora: Solo la imagen */
+            background-image: url('/images/FotoFondo.jpg');
 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    /* El color de texto del body se mantiene, pero la legibilidad de la imagen será el factor principal */
-    color: #4a4a4a;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            /* El color de texto del body se mantiene, pero la legibilidad de la imagen será el factor principal */
+            color: #4a4a4a;
         }
         .login-container {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.3);
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -35,7 +35,7 @@
         .login-container h2 {
             margin-bottom: 25px;
             font-weight: 600;
-            color: #333;
+            color: #000000;
         }
         .form-group {
             margin-bottom: 20px;
@@ -45,7 +45,7 @@
             display: block;
             margin-bottom: 8px;
             font-size: 14px;
-            color: #666;
+            color: #000000;
         }
         .form-group input {
             width: 100%;
@@ -119,8 +119,8 @@
             <input type="password" id="password" name="password" required>
         </div>
         <button type="submit" class="login-button">Acceder</button>
-        <a href="/register" class="register-button">Crear cuenta</a>
     </form>
+        <a href="/register" class="register-button">Crear cuenta</a>
 
 </div>
 </body>

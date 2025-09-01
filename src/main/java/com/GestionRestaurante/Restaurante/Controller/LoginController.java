@@ -15,8 +15,5 @@ public class LoginController {
     public String homePage() {
         return "home"; // Devolverá una vista llamada home.html
     }
-    @GetMapping("/register")
-    public String showRegistrationForm() {
-        return "registration"; // Este es el nombre del archivo HTML
-    }
+
 }
